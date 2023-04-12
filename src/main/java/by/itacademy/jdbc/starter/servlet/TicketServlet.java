@@ -31,7 +31,7 @@ public class TicketServlet extends HttpServlet {
                             <li>
                             %s
                             </li>
-                            """.formatted(e.seatNo())));
+                            """.formatted(e.getSeatNo())));
             writer.write("</ul>");
 
         }
