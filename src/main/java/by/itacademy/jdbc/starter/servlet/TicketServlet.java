@@ -21,19 +21,8 @@ public class TicketServlet extends HttpServlet {
         resp.setCharacterEncoding(StandardCharsets.UTF_8.name());
 
         Long flightId = Long.valueOf(req.getParameter("flightId"));
+        req.setAttribute("tickets", ticketService.findAllByFlightId(flightId));
+        req.getRequestDispatcher("/WEB-INF/jsp/tickets.jsp").forward(req, resp);
 
-        try (var writer = resp.getWriter()) {
-            writer.write("<h1>Купленные билеты:</h1>");
-            writer.write("<ul>");
-            ticketService.findAllByFlightId(flightId).stream().forEach(
-                    e -> writer.write(
-                            """
-                            <li>
-                            %s
-                            </li>
-                            """.formatted(e.getSeatNo())));
-            writer.write("</ul>");
-
-        }
     }
 }
